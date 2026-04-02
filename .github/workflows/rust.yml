@@ -300,6 +300,8 @@ jobs:
           name: ${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86_64.exe
           path: release/${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86_64.ex  build-windows-x86:
           
+  # win32 build
+  build-windows:
     name: Build Windows x86
     runs-on: windows-latest
     steps:
