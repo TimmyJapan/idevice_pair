@@ -298,10 +298,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:        
           name: ${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86_64.exe
-          path: release/${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86_64.ex  build-windows-x86:
+          path: release/${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86_64.exe
           
   # win32 build
-  build-windows:
+  build-windows-x86:
     name: Build Windows x86
     runs-on: windows-latest
     steps:
