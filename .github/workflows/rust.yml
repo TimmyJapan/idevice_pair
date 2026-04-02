@@ -330,3 +330,4 @@ jobs:
         with:
           name: ${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86.exe
           path: release/${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86.exe
+
