@@ -296,6 +296,37 @@ jobs:
              release/${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86_64.exe
       - name: Upload Windows .exe
         uses: actions/upload-artifact@v4
-        with:
+        with:        
           name: ${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86_64.exe
-          path: release/${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86_64.exe
+          path: release/${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86_64.ex  build-windows-x86:
+          
+    name: Build Windows x86
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Rust for x86
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+          targets: i686-pc-windows-msvc
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: windows-x86-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: linux-cargo-
+      - name: Build and Rename Executable
+        shell: bash
+        run: |
+          cargo build --release --no-default-features --bin ${{ env.BINARY_NAME }} --target i686-pc-windows-msvc
+          mkdir -p release
+          cp target/i686-pc-windows-msvc/release/${{ env.BINARY_NAME }}.exe \
+             release/${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86.exe
+      - name: Upload Windows x86 .exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86.exe
+          path: release/${{ env.APP_NAME }}-${{ env.VERSION }}-windows-x86.exe
